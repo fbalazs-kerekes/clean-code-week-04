@@ -17,7 +17,7 @@ describe('UserInputValidator test', () => {
         ['995588', true],
         ['', false],
         ['123456789012345678902', false],
-    ])('given input string is  when input string length between 5 and 20 and only contains alphabetical characters or alphanumneric and validate it then return true', (username: string, expectedResult:boolean) => {
+    ])('given input string is %s when input string length between 5 and 20 and only contains alphabetical characters or alphanumneric and validate it then return %s', (username: string, expectedResult:boolean) => {
         const result = userInputValidator.validateUserInput(username);
 
         expect(result).toBe(expectedResult);

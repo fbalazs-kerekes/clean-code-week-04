@@ -1,18 +1,8 @@
 export class GradeCalculator {
 
     public calculateGrade(score: number): string {
-        if (score >= 90) {
-            return 'A';
-        } else {
-            if (score >= 80) {
-                return 'B';
-            } else {
-                if (score >= 70) {
-                    return 'C';
-                } else {
-                    return 'D';
-                }
-            }
-        }
+        const grades = ['A', 'B', 'C', 'D'];
+        const gradeBoundary: number = [score >= 90, score >= 80, score >= 70, true].indexOf(true);
+        return grades[gradeBoundary];
     }
 }

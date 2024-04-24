@@ -1,4 +1,5 @@
 import { User } from "../src/user";
+import { UserEntity } from "../src/user";
 
 describe('User test', () => {
     let user:User;
@@ -7,9 +8,7 @@ describe('User test', () => {
         user = new User();
     })
 
-    const paramX = 0;
-    const paramY:string = '';
-    const paramB = 0;
+    const processMaxCount = 0;
 
     const users = [
         'John',
@@ -19,65 +18,54 @@ describe('User test', () => {
         'Bar',
         'Lorem',
         'Ipsum'
-    ];
+    ].map((v) => ({username: v} as UserEntity));
 
-    const username = 'Doe';
+    const searchUsername = 'Doe';
 
     it('given users list and lookup username when find an user by lookup username then return the user found string', () => {
-        const paramE = 0;
-        const paramZ:boolean = true;
-        const paramC:boolean = true;
+        const isUsernameLookup:boolean = true;
+        const isLookup:boolean = true;
         
         const expectedUsersIndex = 1;
-        const expectedResult = `User found: ${username} at index ${expectedUsersIndex}`;
+        const expectedResult = `User found: ${searchUsername} at index ${expectedUsersIndex}`;
 
-        const result = user.processUserData(paramX, paramY, paramZ, users, paramB, paramC, username, paramE);
+        const result = user.processUserData(isUsernameLookup, users, isLookup, searchUsername, processMaxCount);
 
         expect(result).toBe(expectedResult);
     })
 
-    it('given users list and lookup username when find an user by lookup username then return the user found string', () => {
-        const paramX = 0;
-        const paramY:string = '';
-        const paramB = 0;
-        const paramE = 0;
-        const paramZ:boolean = true;
-        const paramC:boolean = true;
-        const username = 'Doe';
-        const expectedUsersIndex = 1;
-        const expectedResult = `User found: ${username} at index ${expectedUsersIndex}`;
+    it('given users list and not lookup username and max process count is 0 then return empty string', () => {
+        const isUsernameLookup:boolean = false;
+        const isLookup:boolean = true;
+        const expectedResult = '';
 
-
-        const result = user.processUserData(paramX, paramY, paramZ, users, paramB, paramC, username, paramE);
+        const result = user.processUserData(isUsernameLookup, users, isLookup, searchUsername, processMaxCount);
 
         expect(result).toBe(expectedResult);
     })
 
     it('given users list and processing limit when step to processig limit then return the processig status', () => {
-        const paramE = 3;
-        const paramZ:boolean = false;
-        const paramC:boolean = true;
-        const username = 'Doe';
-        const expectedRepeatCount = paramE;
+        const processMaxCount = 3;
+        const isUsernameLookup:boolean = false;
+        const isLookup:boolean = true;
+        const expectedRepeatCount = processMaxCount;
         const expectedResult = 'Processing... '.repeat(expectedRepeatCount);
 
 
-        const result = user.processUserData(paramX, paramY, paramZ, users, paramB, paramC, username, paramE);
+        const result = user.processUserData(isUsernameLookup, users, isLookup, searchUsername, processMaxCount);
 
         expect(result).toBe(expectedResult);
     }) 
 
 
     it('given users list and lookup username when neither user lookup nor count then no action executed', () => {
-        const paramE = 3;
-        const paramZ:boolean = false;
-        const paramC:boolean = false;
-        const username = 'Doe';
-        const expectedRepeatCount = paramE;
+        const processMaxCount = 3;
+        const isUsernameLookup:boolean = false;
+        const isLookup:boolean = false;
         const expectedResult = 'No action taken.';
 
 
-        const result = user.processUserData(paramX, paramY, paramZ, users, paramB, paramC, username, paramE);
+        const result = user.processUserData(isUsernameLookup, users, isLookup, searchUsername, processMaxCount);
 
         expect(result).toBe(expectedResult);
     }) 

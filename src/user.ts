@@ -1,23 +1,34 @@
+export type UserEntity = {
+    username: string
+}
+
 export class User {
 
-    public processUserData(x: number, y: string, z: boolean, a: string[], b: number, c:
-        boolean, d: string, e: number): string {
+    public processUserData(isUsernameLookup: boolean, users: UserEntity[], isLookup: boolean, searchUsername: string, processMaxCount: number): string {
         let result = '';
-        if (z && c) {
-            for (let i = 0; i < a.length; i++) {
-                if (a[i] === d) {
-                    result += 'User found: ' + d + ' at index ' + i;
-                    break;
-                }
-            }
-        } else if (!z && c) {
-            let count = 0;
-            while (count < e) {
-                result += 'Processing... ';
-                count++;
+
+        if(isLookup) {
+            if(isUsernameLookup) {
+                result += this.findUser(users, searchUsername);
+            } else {
+                result += this.processText(processMaxCount);
             }
         } else {
             result = 'No action taken.';
+        }
+       
+        return result;
+    }
+
+    public processText(processMaxCount: number) {
+        return 'Processing... '.repeat(processMaxCount);
+    }
+
+    public findUser(users: UserEntity[], searchUsername: string): string {
+        const foundIndex = users.findIndex((value) => value.username === searchUsername);
+        let result = '';
+        if (foundIndex !== -1) {
+            result = 'User found: ' + searchUsername + ' at index ' + foundIndex;
         }
         return result;
     }

@@ -1,14 +1,11 @@
 export class UserInputValidator {
     
     public validateUserInput(input: string): boolean {
-        if (input.trim() !== '') {
-            if (input.length >= 5 && input.length <= 20) {
-                if (/^[a-zA-Z0-9]+$/.test(input)) {
-                    return true;
-                }
-            }
+        input = input.trim();
+        if(input.length < 5 || input.length > 20) {
+            return false;
         }
-        return false;
+        return /^[a-zA-Z0-9]+$/.test(input);
     }
 
 }
